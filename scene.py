@@ -59,10 +59,9 @@ class Sphere(Object3D):
                 return -b/2
         elif delta > 0:
             #Deux solutions (on prend la plus petite (première collision))
-            a1 = max(0, -b + delta**(1/2)) 
-            a2 = max(0, -b - delta**(1/2))
+            a1 = max(0, (-b + delta**(1/2))/2) 
+            a2 = max(0, (-b - delta**(1/2))/2)
 
-            print(delta, a1, a2)
 
             if min(a1,a2) > 0:
                 return min(a1,a2)

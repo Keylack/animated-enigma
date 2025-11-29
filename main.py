@@ -6,14 +6,14 @@ import pygame
 
 
 #Scene
-my_cam = Camera(Vector(0,0,1), image_width = 10, image_height = 10)
+my_cam = Camera(Vector(0,0,1), image_width = 1024, image_height = 576)
 
-sphere = Sphere(Vector(0,2,10), 4)
-sphere2 = Sphere(Vector(0,-2,5), 2)
+sphere = Sphere(Vector(0,4,5), 2)
+sphere2 = Sphere(Vector(0,-4,5), 2)
 
-light = Light(Vector(0,6,5),k_att = 0.)
+light = Light(Vector(0,0,5),k_att = 0.)
 
-scene = Scene([sphere], [light])
+scene = Scene([sphere,sphere2], [light])
 
 #PyGame params
 cell_size = 1
@@ -43,5 +43,5 @@ while running:
     pygame.display.flip()
 
     clock.tick(fps)
-    break
+    
         
