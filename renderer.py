@@ -15,13 +15,13 @@ class Renderer:
                 #rayon du pt vers la source de lumière
                 diffuse = 0
                 for light in scene.lights:
-                    reverse_ray_light = light.orientation_ray(pt)
+                    epsilon = 1e-5
+                    shadow_ray = light.orientation_ray(pt + vecN * epsilon)
                     #objet le plus proche de la source dans la direction + distance
-                    _, hit_light = scene.find_closest(reverse_ray_light)
+                    _, hit_light = scene.find_closest(shadow_ray)
                     #Si pas de contact ou plus loin que la source de lumière -> éclairage
                     if hit_light is None or hit_light > (light.position - pt).norm():
-                        diffuse += light.intensite_att(pt) * max(0, vecN.dot(-1 * reverse_ray_light.direction)) 
-                        print(diffuse, 0, vecN.dot(1 * reverse_ray_light.direction))
+                        diffuse += light.intensite_att(pt) * max(0, vecN.dot(shadow_ray.direction)) 
 
                 color = ([x * diffuse for x in obj.color])
                 image[j,i] = color

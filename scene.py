@@ -73,6 +73,23 @@ class Sphere(Object3D):
     
 
 
+class Plane(Object3D):
+    def __init__(self, pt0 : "Vector", normal : "Vector", color = (133,133,133)):
+        self.pt0 = pt0 #Point appartenant au plan
+        self.normal = normal #Vecteur normal au plan
+        self.color = color
+
+    def intersect(self, ray : "Rayon"):
+        #formule
+        t = max(0, (self.normal.dot(self.pt0 - ray.origin)) / (self.normal.dot(ray.direction)))
+        if t > 0:
+            return t 
+        else:
+            return None        
+    
+    def getNormal(self, pt = None):
+        return self.normal
+
 
 class Light:
     def __init__(self, position, intensite : "0-1" = 1,k_att = 1):

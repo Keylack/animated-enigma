@@ -8,8 +8,8 @@ class Rayon:
     
 
 class Camera:
-    def __init__(self, orientation : 'Vector',FOV = 90, aspect_ratio = 16/9, image_width = 1280, image_height = 720 ):
-        self.position = Vector(0,0,0)
+    def __init__(self, orientation : 'Vector', position = Vector(0,0,0), FOV = 90, aspect_ratio = 16/9, image_width = 1280, image_height = 720 ):
+        self.position = position
         self.orientation = orientation.normalize()
 
         #Plan
