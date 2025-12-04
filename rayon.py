@@ -1,5 +1,6 @@
 import math
 from vector import Vector
+import random
 
 class Rayon:
     def __init__(self, origin : 'Vector', direction : 'Vector normalisé'):
@@ -58,8 +59,17 @@ class Camera:
                 x2 = ((j + 1/2) / self.image_height - 0.5) * height
                 
                 pt_origin = self.get_center_plan() + x1 * right + x2 * up
-                new_ray = Rayon(self.position, (pt_origin - self.position).normalize())
-                rayons.append((i, j, new_ray))
+                rays = []
+                for _ in range(9):
+
+                    x1 = ((i + random.random()) / self.image_width - 0.5) * width
+                    x2 = ((j + random.random()) / self.image_height - 0.5) * height
+
+                    pt_origin = self.get_center_plan() + x1 * right + x2 * up
+                    new_ray = new_ray = Rayon(self.position, (pt_origin - self.position).normalize())
+                    rays.append(new_ray)
+
+                rayons.append((i, j, rays))
 
         return rayons
 
