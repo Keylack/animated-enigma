@@ -32,6 +32,10 @@ class Scene:
 
 
 class Object3D:
+    def __init__(self, material):
+        self.material = material
+
+
     def intersect(self, ray):
         raise NotImplementedError("intersect() must be implemented in derived classes")
 
@@ -39,10 +43,10 @@ class Object3D:
         raise NotImplementedError("getNormal() must be implemented in derived classes")
 
 class Sphere(Object3D):
-    def __init__(self, centre, radius, color = (255,0,0)):
+    def __init__(self, centre, radius, material):
+        super().__init__(material)
         self.centre = centre
         self.radius = radius
-        self.color = color
 
     def intersect(self, ray):
         L = ray.origin - self.centre
@@ -74,10 +78,10 @@ class Sphere(Object3D):
 
 
 class Plane(Object3D):
-    def __init__(self, pt0 : "Vector", normal : "Vector", color = (133,133,133)):
+    def __init__(self, pt0 : "Vector", normal : "Vector", material):
+        super().__init__(material)
         self.pt0 = pt0 #Point appartenant au plan
         self.normal = normal #Vecteur normal au plan
-        self.color = color
 
     def intersect(self, ray : "Rayon"):
         #formule
@@ -92,10 +96,11 @@ class Plane(Object3D):
 
 
 class Light:
-    def __init__(self, position, intensite : "0-1" = 1,k_att = 1):
+    def __init__(self, position, intensite : "0-1" = 1,k_att = 1, color=(1,1,1)):
         self.position = position
         self.intensite = intensite #intensité nominale
         self.k = k_att
+        self.color = (1,1,1)
 
     
     def intensite_att(self, pt):

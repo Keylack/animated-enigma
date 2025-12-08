@@ -60,7 +60,7 @@ class Camera:
                 
                 pt_origin = self.get_center_plan() + x1 * right + x2 * up
                 rays = []
-                for _ in range(9):
+                for _ in range(4):
 
                     x1 = ((i + random.random()) / self.image_width - 0.5) * width
                     x2 = ((j + random.random()) / self.image_height - 0.5) * height

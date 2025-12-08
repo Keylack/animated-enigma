@@ -16,6 +16,7 @@ class Renderer:
                     #Calcul de la couleur
                     #rayon du pt vers la source de lumière
                     diffuse = 0
+                    #Blinn Phong
                     for light in scene.lights:
                         epsilon = 1e-5
                         shadow_ray = light.orientation_ray(pt + vecN * epsilon)
@@ -24,9 +25,14 @@ class Renderer:
                         #Si pas de contact ou plus loin que la source de lumière -> éclairage
                         if hit_light is None or hit_light > (light.position - pt).norm():
                             diffuse += light.intensite_att(pt) * max(0, vecN.dot(shadow_ray.direction)) 
+                        
+                        #Spéculaire
+                        H = (-1 * rayon.direction + shadow_ray.direction).normalize()
+                        speculaire = max(0, vecN.dot(H))**obj.material.shine
+                        #Somme des apports : lambert + blinn phong
+                        current_color = ([obj.material.kd * diffuse * C_obj * C_light + obj.material.ks * speculaire * C_light \
+                                        for C_obj, C_light in zip(obj.material.color, light.color)])
                     
-
-                    current_color = ([x * diffuse for x in obj.color])
                     color = [k1 * n + k2 for k1, k2 in zip(color, current_color)]
                     color = [x / (n + 1) for x in color]
             image[j,i] = color
