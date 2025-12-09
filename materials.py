@@ -4,9 +4,9 @@ class Material:
         self.ks = ks
         self.shine = shine
         self.metallic = metallic
-        if self.metallic == True
+        if self.metallic == True:
             self.kd = 0
-            self.F0 = self.color
+            self.F0 = ([x / 255 for x in self.color])
         else:
             self.kd = kd
             self.F0 = (0.04,0.04,0.04)

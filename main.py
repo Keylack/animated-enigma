@@ -1,7 +1,7 @@
 from vector import Vector
 from rayon import Camera
 from scene import *
-from renderer import Renderer
+from renderer import render
 import pygame
 import numpy as np 
 from materials import *
@@ -20,23 +20,24 @@ def save_ppm(filename, np_array):
 #Scene
 my_cam = Camera(Vector(0,0,1), position = Vector(0,0,0), image_width = 1024, image_height = 576, aspect_ratio = 16/9)
 
-sphere = Sphere(Vector(-4,3,10), 2, metal_blue)
-sphere2 = Sphere(Vector(4,3,10), 2, plastic_red)
+sphere = Sphere(Vector(-4,3,10), 2, plastic_red)
+sphere2 = Sphere(Vector(4,3,10), 2, metal_blue)
+
 plane = Plane(Vector(0,-3,0), Vector(0,1,0), ground_gray) #pt0, vec normal
 
-light = Light(Vector(0,0,0),k_att = 0)
+light = Light(Vector(0,3,0),k_att = 0)
 
-# light2 = Light(Vector(4,2,3),k_att = 0)
+light2 = Light(Vector(0,10,10),k_att = 0)
 
 # light = Light(Vector(0,2,3),k_att = 0)
 
 
-scene = Scene([sphere, sphere2, plane], [light])
+scene = Scene([sphere, sphere2,plane], [light, light2])
 
 
 
 
-#PyGame params
+# PyGame params
 # cell_size = 1
 
 # fps = 1
@@ -66,6 +67,6 @@ scene = Scene([sphere, sphere2, plane], [light])
 #     clock.tick(fps)
 
 
-image = Renderer.render(scene, my_cam)
+image = render(scene, my_cam)
 
 save_ppm("test.ppm", image)

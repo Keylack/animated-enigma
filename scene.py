@@ -96,11 +96,11 @@ class Plane(Object3D):
 
 
 class Light:
-    def __init__(self, position, intensite : "0-1" = 1,k_att = 1, color=(1,1,1)):
+    def __init__(self, position, intensite : "0-1" = 1,k_att = 1, color=(255,255,255)):
         self.position = position
         self.intensite = intensite #intensité nominale
         self.k = k_att
-        self.color = (1,1,1)
+        self.color = color
 
     
     def intensite_att(self, pt):
